@@ -1,0 +1,27 @@
+main {
+    max-width: 30em;
+    margin: auto;
+}
+
+h1 {
+    font-weight: 700;
+    font-size: 36px;
+    font-family: sans-serif;
+    text-align: center;
+    margin: 0.5rem 0;
+}
+
+header {
+    border-bottom: 1px solid #cccccc;
+}
+
+#periodic-table {
+    display: grid;
+    grid-template-columns: repeat(18, auto) 1fr;
+    width: 100%;
+}
+
+#element-H { grid-area: 1 / 1 / 2 / 2; }
+#element-He { grid-area: 1 / 17 / 2 / 18; }
+#element-Li { grid-area: 2 / 1 / 2 / 2; }
+#element-Br { grid-area: 2 / 2 / 2 / 3; }

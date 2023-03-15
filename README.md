@@ -1,2 +1,3 @@
 # elementle
-An element-guessing game
+
+An element-guessing game.
