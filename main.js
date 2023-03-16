@@ -68,7 +68,7 @@ const ELEMENTS = [
     {Z: 67, abbrev: "Ho", name: "Holmium"},
     {Z: 68, abbrev: "Er", name: "Erbium"},
     {Z: 69, abbrev: "Tm", name: "Thulium"},
-    {Z: 70, abbrev: "Yt", name: "Ytterbium"},
+    {Z: 70, abbrev: "Yb", name: "Ytterbium"},
     {Z: 71, abbrev: "Lu", name: "Lutetium"},
     {Z: 72, abbrev: "Hf", name: "Hafnium"},
     {Z: 73, abbrev: "Ta", name: "Tantalum"},
@@ -118,3 +118,99 @@ const ELEMENTS = [
     {Z: 117, abbrev: "Ts", name: "Tennessine"},
     {Z: 118, abbrev: "Og", name: "Oganesson"}
 ];
+
+const createElement = element => {
+
+    const box = document.createElement("div");
+    box.classList.add("element");
+    
+    const abbrev = document.createElement("span");
+    abbrev.classList.add("abbrev");
+    abbrev.textContent = element.abbrev;
+    box.append(abbrev);
+
+    const atomicNumber = document.createElement("span");
+    atomicNumber.classList.add("atomic-number");
+    atomicNumber.textContent = element.Z;
+    box.append(atomicNumber);
+
+    const name = document.createElement("span");
+    name.classList.add("name");
+    name.textContent = element.name;
+    box.append(name);
+
+    return box;
+
+};
+
+const isLanthanideOrActinide = Z => Z >= 57 && Z <= 70 || Z >= 89 && Z <= 102;
+
+// this code is super scuffed
+const makeTable = () => {
+    
+    const table = document.getElementById("periodic-table");
+
+    // main table
+    let col = 1, row = 1;
+    for(const element of ELEMENTS) {
+
+        // skip lanthanides and actinides
+        if(isLanthanideOrActinide(element.Z)) {
+            continue;
+        }
+
+        const box = createElement(element);
+        box.style.gridRowStart = row;
+        box.style.gridColumnStart = col;
+        table.append(box);
+
+        if(element.Z == 1) {
+            col += 18;
+        } else if(element.Z == 4 || element.Z == 12) {
+            col += 12;
+        } else if(element.Z == 20 || element.Z == 38 || element.Z == 56 || element.Z == 88) { 
+            col += 2;
+        } else {
+            col++;
+        }
+
+        if(col == 20) {
+            col = 1;
+            row++;
+        }
+
+    }
+
+    // lanthanides, actinides
+    col = 4;
+    row = 9;
+    for(const element of ELEMENTS) {
+
+        // ignore main table elements
+        if(!isLanthanideOrActinide(element.Z)) {
+            continue;
+        }
+
+        const box = createElement(element);
+        box.style.gridRowStart = row;
+        box.style.gridColumnStart = col;
+        table.append(box);
+
+        col++;
+        if(col == 18) {
+            col = 4;
+            row++;
+        }
+
+    }
+    
+    // insert spacer
+    const spacer = document.createElement("div");
+    spacer.style.gridRowStart = 8;
+    spacer.style.gridColumnStart = 3;
+    spacer.id = "spacer";
+    table.append(spacer);
+
+};
+
+makeTable();

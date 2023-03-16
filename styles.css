@@ -1,6 +1,7 @@
 main {
-    max-width: 30em;
+    max-width: 50em;
     margin: auto;
+    font-family: sans-serif;
 }
 
 h1 {
@@ -17,11 +18,40 @@ header {
 
 #periodic-table {
     display: grid;
-    grid-template-columns: repeat(18, auto) 1fr;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) minmax(0, 0.2fr) repeat(16, minmax(0, 1fr));
+    gap: 2px;
     width: 100%;
 }
 
-#element-H { grid-area: 1 / 1 / 2 / 2; }
-#element-He { grid-area: 1 / 17 / 2 / 18; }
-#element-Li { grid-area: 2 / 1 / 2 / 2; }
-#element-Br { grid-area: 2 / 2 / 2 / 3; }
+.element, #spacer {
+    aspect-ratio: 1;
+}
+
+.element {
+    background-color: rgba(0, 0, 0, 20%);
+    border-radius: 4px;
+    position: relative;
+    display: flex;
+}
+
+.element .abbrev {
+    font-size: 18px;
+    margin: auto;
+}
+
+.element .atomic-number {
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    font-size: 8px;
+}
+
+.element .name {
+    position: absolute;
+    bottom: 2px;
+    font-size: 8px;
+    text-align: center;
+    width: 90%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
